@@ -176,17 +176,17 @@ def format_relative_time(iso_date_string):
     diff_minutes = diff_seconds / 60
     
     # Define formatting
-    time_format = "%I:%M %p"  # Example: 04:30 PM
-    month_day_format = "%b %d at " + time_format  # Example: Feb 12 at 04:30 PM
+    time_format = "%H:%M"  # Example: 04:30
+    month_day_format = "%d %b à " + time_format  # Example: Feb 12 at 04:30 PM
     
     # Determine relative time string
     if diff_seconds < 120:
-        return "just now"
+        return "à l'instant"
     elif diff_minutes < 60:
-        return f"{int(diff_minutes)} minutes ago"
+        return f"il y a {int(diff_minutes)} minutes"
     elif dt.date() == now.date():
-        return "today at " + dt.strftime(time_format).lstrip("0")
+        return "aujourd'hui à " + dt.strftime(time_format).lstrip("0")
     elif dt.date() == (now.date() - timedelta(days=1)):
-        return "yesterday at " + dt.strftime(time_format).lstrip("0")
+        return "hier à " + dt.strftime(time_format).lstrip("0")
     else:
         return dt.strftime(month_day_format).replace(" 0", " ")  # Removes leading zero in day

@@ -435,7 +435,7 @@ body {
     padding: 20px;
     border-radius: 10px;
     width: 90%;
-    max-width: 400px;
+    max-width: 800px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.3s ease-out;
 }

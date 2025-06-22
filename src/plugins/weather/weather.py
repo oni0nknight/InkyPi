@@ -7,6 +7,9 @@ from datetime import datetime, timezone
 import pytz
 from io import BytesIO
 import math
+import locale
+
+locale.setlocale(locale.LC_ALL, 'fr_FR.UTF-8')
 
 logger = logging.getLogger(__name__)
 
@@ -77,9 +80,9 @@ class Weather(BasePlugin):
         # Add last refresh time
         now = datetime.now(tz)
         if time_format == "24h":
-            last_refresh_time = now.strftime("%Y-%m-%d %H:%M")
+            last_refresh_time = now.strftime("%d/%m/%Y %H:%M")
         else:
-            last_refresh_time = now.strftime("%Y-%m-%d %I:%M %p")
+            last_refresh_time = now.strftime("%d/%m/%Y %I:%M %p")
         template_params["last_refresh_time"] = last_refresh_time
 
         image = self.render_image(dimensions, "weather.html", "weather.css", template_params)
@@ -94,7 +97,7 @@ class Weather(BasePlugin):
         current_icon = current.get("weather")[0].get("icon").replace("n", "d")
         location_str = f"{location_data.get('name')}, {location_data.get('state', location_data.get('country'))}"
         data = {
-            "current_date": dt.strftime("%A, %B %d"),
+            "current_date": dt.strftime("%A %d %B"),
             "location": location_str,
             "current_day_icon": self.get_plugin_dir(f'icons/{current_icon}.png'),
             "current_temperature": str(round(current.get("temp"))),
@@ -197,7 +200,7 @@ class Weather(BasePlugin):
                 sunrise_time = sunrise_dt.strftime('%I:%M').lstrip("0")
                 sunrise_unit = sunrise_dt.strftime('%p')
             data_points.append({
-                "label": "Sunrise",
+                "label": "Lever",
                 "measurement": sunrise_time,
                 "unit": sunrise_unit,
                 "icon": self.get_plugin_dir('icons/sunrise.png')
@@ -215,7 +218,7 @@ class Weather(BasePlugin):
                 sunset_time = sunset_dt.strftime('%I:%M').lstrip("0")
                 sunset_unit = sunset_dt.strftime('%p')
             data_points.append({
-                "label": "Sunset",
+                "label": "Coucher",
                 "measurement": sunset_time,
                 "unit": sunset_unit,
                 "icon": self.get_plugin_dir('icons/sunset.png')
@@ -223,48 +226,48 @@ class Weather(BasePlugin):
         else:
             logging.error(f"Sunset not found in OpenWeatherMap response, this is expected for polar areas in midnight sun and polar night periods.")
 
-        data_points.append({
-            "label": "Wind",
-            "measurement": weather.get('current', {}).get("wind_speed"),
-            "unit": UNITS[units]["speed"],
-            "icon": self.get_plugin_dir('icons/wind.png')
-        })
+        #data_points.append({
+        #    "label": "Vent",
+        #    "measurement": weather.get('current', {}).get("wind_speed"),
+        #    "unit": UNITS[units]["speed"],
+        #    "icon": self.get_plugin_dir('icons/wind.png')
+        #})
 
         data_points.append({
-            "label": "Humidity",
+            "label": "Humidité",
             "measurement": weather.get('current', {}).get("humidity"),
             "unit": '%',
             "icon": self.get_plugin_dir('icons/humidity.png')
         })
 
-        data_points.append({
-            "label": "Pressure",
-            "measurement": weather.get('current', {}).get("pressure"),
-            "unit": 'hPa',
-            "icon": self.get_plugin_dir('icons/pressure.png')
-        })
+        #data_points.append({
+        #    "label": "Pression",
+        #    "measurement": weather.get('current', {}).get("pressure"),
+        #    "unit": 'hPa',
+        #    "icon": self.get_plugin_dir('icons/pressure.png')
+        #})
 
-        data_points.append({
-            "label": "UV Index",
-            "measurement": weather.get('current', {}).get("uvi"),
-            "unit": '',
-            "icon": self.get_plugin_dir('icons/uvi.png')
-        })
+        #data_points.append({
+        #    "label": "Index UV",
+        #    "measurement": weather.get('current', {}).get("uvi"),
+        #    "unit": '',
+        #    "icon": self.get_plugin_dir('icons/uvi.png')
+        #})
 
         visibility = weather.get('current', {}).get("visibility")/1000
         visibility_str = f">{visibility}" if visibility >= 10 else visibility
-        data_points.append({
-            "label": "Visibility",
-            "measurement": visibility_str,
-            "unit": 'km',
-            "icon": self.get_plugin_dir('icons/visibility.png')
-        })
+        #data_points.append({
+        #    "label": "Visibilité",
+        #    "measurement": visibility_str,
+        #    "unit": 'km',
+        #    "icon": self.get_plugin_dir('icons/visibility.png')
+        #})
 
         aqi = air_quality.get('list', [])[0].get("main", {}).get("aqi")
         data_points.append({
-            "label": "Air Quality",
+            "label": "Qualité de l'air",
             "measurement": aqi,
-            "unit": ["Good", "Fair", "Moderate", "Poor", "Very Poor"][int(aqi)-1],
+            "unit": ["Très bon", "Bon", "Moyen", "Mauvais", "Très mauvais"][int(aqi)-1],
             "icon": self.get_plugin_dir('icons/aqi.png')
         })
 

@@ -41,6 +41,8 @@ class Apod(BasePlugin):
             delta_days = (end - start).days
             random_date = start + timedelta(days=randint(0, delta_days))
             params["date"] = random_date.strftime("%Y-%m-%d")
+        elif settings.get("todayApod") == "true":
+            params["date"] = datetime.today().strftime("%Y-%m-%d")
         elif settings.get("customDate"):
             params["date"] = settings["customDate"]
 
@@ -55,7 +57,9 @@ class Apod(BasePlugin):
         if data.get("media_type") != "image":
             raise RuntimeError("APOD is not an image today.")
 
-        image_url = data.get("hdurl") or data.get("url")
+        image_url = data.get("url") or data.get("hdurl")
+
+        logger.info("APOD plugin : NASA image URL found")
 
         try:
             img_data = requests.get(image_url)

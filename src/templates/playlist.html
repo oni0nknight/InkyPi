@@ -68,7 +68,7 @@
 
         // Open modal for **creating** a new playlist
         function openCreateModal() {
-            document.getElementById("modalTitle").textContent = "New Playlist";
+            document.getElementById("modalTitle").textContent = "Nouvelle Playlist";
             document.getElementById("playlist_name").value = "";
             document.getElementById("editingPlaylistName").value = ""; // Empty value means it's new
             document.getElementById("start_time").value = "00:00";
@@ -82,7 +82,7 @@
 
         // Open modal for **editing** an existing playlist
         function openEditModal(playlistName, startTime, endTime) {
-            document.getElementById("modalTitle").textContent = "Update Playlist";
+            document.getElementById("modalTitle").textContent = "Modifier la Playlist";
             document.getElementById("playlist_name").value = playlistName;
             document.getElementById("editingPlaylistName").value = playlistName;
             document.getElementById("start_time").value = startTime;
@@ -215,7 +215,7 @@
 <body>
     <div class="frame">
         <!-- Back Button -->
-        <button onclick="history.back()" class="back-button">← Back</button>
+        <button onclick="history.back()" class="back-button">← Retour</button>
         <!-- Settings Header -->
         <div class="app-header">
             <div class="header-content">
@@ -223,7 +223,7 @@
                     <img src="{{ url_for('static', filename='icons/playlist.png') }}" alt="playlist icon" class="app-icon">
                     <h1 class="app-title">Playlists</h1>
                 </div>
-                <button class="header-button" onclick="openCreateModal()">New Playlist</button>
+                <button class="header-button" onclick="openCreateModal()">Nouvelle Playlist</button>
             </div>
         </div>
         <div class="separator"></div>
@@ -246,7 +246,7 @@
 
                                 <!-- Check if the current plugin is the one being displayed -->
                                 {% if playlist.name == refresh_info.playlist and plugin_instance.name == refresh_info.plugin_instance %}
-                                <span class="displayed-now">Displayed Now</span>
+                                <span class="displayed-now">Affiché maintenant</span>
                                 {% endif %}
                                 <div id="loadingIndicator" class="loading-indicator small left-align"></div>
 
@@ -255,17 +255,17 @@
                             {% if plugin_instance.latest_refresh_time %}
                                 {% set refresh_time = plugin_instance.latest_refresh_time | format_relative_time %}
                                 <span class="latest-refresh" title="{{plugin_instance.latest_refresh_time}}">
-                                    Refreshed {{ refresh_time }}
+                                    Rafraichi {{ refresh_time }}
                                 </span>
                             {% endif %}
 
                             <a href="{{ url_for('plugin.plugin_page', plugin_id=plugin_instance.plugin_id) }}?instance={{ plugin_instance.name }}" class="edit-button">
                                 <img src="{{ url_for('static', filename='icons/edit.png') }}" alt="edit plugin" class="action-icon">
                             </a>
-                            <button class="edit-button" title="Display Now" onclick="displayPluginInstance('{{ playlist.name }}', '{{ plugin_instance.plugin_id }}','{{ plugin_instance.name }}')">
+                            <button class="edit-button" title="Afficher maintenant" onclick="displayPluginInstance('{{ playlist.name }}', '{{ plugin_instance.plugin_id }}','{{ plugin_instance.name }}')">
                                 <img src="{{ url_for('static', filename='icons/display.png') }}" alt="display now" class="action-icon">
                             </button>
-                            <button class="delete-button" title="Delete Plugin Instance" onclick="deletePluginInstance('{{ playlist.name }}', '{{ plugin_instance.plugin_id }}','{{ plugin_instance.name }}')">
+                            <button class="delete-button" title="Supprimer de la Playlist" onclick="deletePluginInstance('{{ playlist.name }}', '{{ plugin_instance.plugin_id }}','{{ plugin_instance.name }}')">
                                 <img src="{{ url_for('static', filename='icons/remove.png') }}" alt="delete plugin" class="action-icon">
                             </button>
                         </div>
@@ -280,25 +280,25 @@
     <div id="playlistModal" class="modal">
         <div class="modal-content">
             <span class="close-button" onclick="closeModal()">×</span>
-            <h2 id="modalTitle">New Playlist</h2>
+            <h2 id="modalTitle">Nouvelle Playlist</h2>
             <div class="separator"></div>
             <form id="scheduleForm" class="settings-form">
                 <input type="hidden" id="editingPlaylistName" value="">  <!-- Track existing playlist -->
 
                 <div class="form-group">
-                    <label for="playlist_name" class="form-label">Playlist Name:</label>
-                    <input type="text" id="playlist_name" name="playlist_name" placeholder="Type something..." required class="form-input">
+                    <label for="playlist_name" class="form-label">Nom de la Playlist:</label>
+                    <input type="text" id="playlist_name" name="playlist_name" placeholder="Nom..." required class="form-input">
                 </div>
                 <div class="form-group">
-                    <label for="start_time" class="form-label">Display from </label>
+                    <label for="start_time" class="form-label">Afficher entre </label>
                     <select id="start_time" name="start_time" class="form-input"></select>
-                    <span> - </span>
+                    <span> et </span>
                     <select id="end_time" name="end_time" class="form-input"></select>
                 </div>
             </form>
             <div class="buttons-container">
-                <button type="button" class="action-button" id="saveButton">Save</button>
-                <button type="button" class="action-button warn hidden" id="deleteButton" onclick="deletePlaylist()">Delete</button>
+                <button type="button" class="action-button" id="saveButton">Sauvegarder</button>
+                <button type="button" class="action-button warn hidden" id="deleteButton" onclick="deletePlaylist()">Supprimer</button>
             </div>
         </div>
     </div>

@@ -3,9 +3,7 @@
 {% block content %}
 
 <div class="weather-dashboard">
-  {% if plugin_settings.displayRefreshTime == "true" %}
-  <div class="last-refresh">Last refresh: {{ last_refresh_time }}</div>
-  {% endif %}
+  <div class="last-refresh">Mis à jour : {{ last_refresh_time }}</div>
   <!-- Current Date -->
   <div class="header">
     <div class="location">{{ location }}</div>
@@ -19,7 +17,7 @@
         <img class="current-icon" src="{{current_day_icon}}" alt="Current Weather Icon">
         <div class="current-weather">
           <div class="current-temp">{{ current_temperature }}<span class="temperature-unit">{{temperature_unit}}</span></div>
-          <div class="feels-like">Feels Like {{ feels_like }}{% if units != "standard" %}°{% endif %}</div>
+          <div class="feels-like">Ressentie {{ feels_like }}{% if units != "standard" %}°{% endif %}</div>
         </div>
     </div>
 

@@ -2,7 +2,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 <div class="form-group">
-    <label class="form-label">Location: </label>
+    <label class="form-label">Lieu: </label>
     <div class="form-group">
         <span>Latitude </span>
         <input readonly type="text" id="latitude" name="latitude" class="form-input" />
@@ -11,50 +11,45 @@
         <span>Longitude </span>
         <input readonly type="text" id="longitude" name="longitude" class="form-input" />
     </div>
-    <button type="button" id="openMap" class="action-button compact">Select Location</button>
+    <button type="button" id="openMap" class="action-button compact">Choix du lieu</button>
 </div>
 
 <div class="form-group">
-    <label for="units" class="form-label">Units:</label>
+    <label for="units" class="form-label">Unités:</label>
     <select id="units" name="units" class="form-input">
+	<option value="metric">Metric (°C)</option>
         <option value="imperial">Imperial (°F)</option>
-        <option value="metric">Metric (°C)</option>
         <option value="standard">Standard (K)</option>
     </select>
 </div>
 
 <div class="form-group">
-    <label for="displayMetrics" class="form-label">Display: </label>
-
-    <div class="form-group">
-      <input type="checkbox" id="displayRefreshTime" name="displayRefreshTime" onclick="this.value=this.checked ? 'true' : 'false';">
-      <span>Refresh Time</span>
-    </div>
+    <label for="displayMetrics" class="form-label">Affichage: </label>
 
     <div class="form-group">
         <input type="checkbox" id="displayMetrics" name="displayMetrics" onclick="this.value=this.checked ? 'true' : 'false';">
-        <span>Metrics</span>
+        <span>Infos</span>
     </div>
 
     <div class="form-group">
         <input type="checkbox" id="displayGraph" name="displayGraph" onclick="this.value=this.checked ? 'true' : 'false';">
-        <span>Weather Graph</span>
+        <span>Graphique soleil</span>
     </div>
 
     <div class="form-group">
         <input type="checkbox" id="moonPhase" name="moonPhase" onclick="this.value=this.checked ? 'true' : 'false';">
-        <span>Moon Phase</span>
+        <span>Phases lune</span>
     </div>
 
     <div class="form-group">
         <input type="checkbox" id="displayForecast" name="displayForecast" onclick="this.value=this.checked ? 'true' : 'false';">
-        <span>Forecast</span>
+        <span>Prévisions</span>
         <select id="forecastDays" name="forecastDays" class="form-input">
             <option value=3>3</option>
             <option value=5>5</option>
             <option value=7>7</option>
         </select>
-        days
+        jours
     </div>
 </div>
 
@@ -62,10 +57,10 @@
 <div id="mapModal" class="modal">
     <div class="modal-content">
         <span class="close-button" onclick="closeModal('mapModal')">×</span>
-        <h2 id="modalTitle">Select Location</h2>
+        <h2 id="modalTitle">Choix du lieu</h2>
         <div class="separator"></div>
-        <div id="map" style="width: 100%; height: 200px; margin: 10px 0px;"></div>
-        <button id="closeMap" class="action-button">Save</button>
+        <div id="map" style="width: 100%; height: 500px; margin: 10px 0px;"></div>
+        <button id="closeMap" class="action-button">Valider</button>
     </div>
 </div>
 
@@ -114,9 +109,6 @@
 
             document.getElementById('units').value = pluginSettings.units;
 
-            document.getElementById('displayRefreshTime').checked = pluginSettings.displayRefreshTime;
-            document.getElementById('displayRefreshTime').value = pluginSettings.displayRefreshTime;
-
             document.getElementById('displayMetrics').checked = pluginSettings.displayMetrics;
             document.getElementById('displayMetrics').value = pluginSettings.displayMetrics;
 
@@ -130,9 +122,7 @@
             document.getElementById('moonPhase').checked = pluginSettings.moonPhase;
         } else {
             // set default values
-            document.getElementById('units').value = "imperial";
-            document.getElementById('displayRefreshTime').checked = true;
-            document.getElementById('displayRefreshTime').value = "true";
+            document.getElementById('units').value = "metric";
             document.getElementById('displayMetrics').checked = true;
             document.getElementById('displayMetrics').value = "true";
             document.getElementById('displayGraph').checked = true;
@@ -140,8 +130,9 @@
             document.getElementById('displayForecast').checked = true;
             document.getElementById('displayForecast').value = "true";
             
-            document.getElementById('forecastDays').value = 7
-            document.getElementById('moonPhase').checked = false;
+            document.getElementById('forecastDays').value = 5
+            document.getElementById('moonPhase').checked = true;
+	    document.getElementById('moonPhase').value = "true";
         }
     });
 </script>

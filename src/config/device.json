@@ -1,0 +1,66 @@
+{
+    "name": "InkyPi",
+    "orientation": "horizontal",
+    "inverted_image": null,
+    "scheduler_sleep_time": 60,
+    "startup": false,
+    "resolution": [
+        800,
+        480
+    ],
+    "playlist_config": {
+        "playlists": [
+            {
+                "name": "Matin",
+                "start_time": "07:00",
+                "end_time": "11:30",
+                "plugins": [],
+                "current_plugin_index": 0
+            },
+            {
+                "name": "Midi",
+                "start_time": "11:30",
+                "end_time": "14:30",
+                "plugins": [],
+                "current_plugin_index": null
+            },
+            {
+                "name": "Apr\u00e8s-midi",
+                "start_time": "14:30",
+                "end_time": "18:00",
+                "plugins": [],
+                "current_plugin_index": null
+            },
+            {
+                "name": "Soir\u00e9e",
+                "start_time": "18:00",
+                "end_time": "24:00",
+                "plugins": [],
+                "current_plugin_index": 0
+            },
+            {
+                "name": "Nuit",
+                "start_time": "00:00",
+                "end_time": "07:00",
+                "plugins": [],
+                "current_plugin_index": null
+            }
+        ],
+        "active_playlist": "Soir\u00e9e"
+    },
+    "refresh_info": {
+        "refresh_time": "2025-06-20T14:35:07.324495+02:00",
+        "image_hash": "6cd7d2563a0bc65fe87ba4d490d23383aa7a9c31eee6d35f5fc4dae96b6179a5",
+        "refresh_type": "Manual Update",
+        "plugin_id": "gdrive"
+    },
+    "timezone": "Europe/Paris",
+    "time_format": "24h",
+    "plugin_cycle_interval_seconds": 60,
+    "image_settings": {
+        "saturation": 1.0,
+        "brightness": 1.0,
+        "sharpness": 1.0,
+        "contrast": 1.0
+    }
+}

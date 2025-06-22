@@ -1,38 +1,62 @@
 <div class="form-group">
-    <label for="customDate" class="form-label">Date (optional)</label>
+    <label for="customDate" class="form-label">Image à date spécifique</label>
     <input type="date" id="customDate" name="customDate" class="form-input" />
 </div>
 
 <div class="form-group">
-    <label for="randomizeApod" class="form-label">Randomize date</label>
+    <label for="todayApod" class="form-label">Image d'aujourd'hui</label>
+    <div class="toggle-container">
+        <input type="checkbox" id="todayApod" name="todayApod" class="toggle-checkbox" value="true"
+            onclick="this.value = this.checked ? 'true' : 'false'; todayToggled(this)">
+        <label for="todayApod" class="toggle-label"></label>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="randomizeApod" class="form-label">Image aléatoire</label>
     <div class="toggle-container">
         <input type="checkbox" id="randomizeApod" name="randomizeApod" class="toggle-checkbox" value="false"
-            onclick="this.value = this.checked ? 'true' : 'false'; toggleDateField(this)">
+            onclick="this.value = this.checked ? 'true' : 'false'; randomToggled(this)">
         <label for="randomizeApod" class="toggle-label"></label>
     </div>
 </div>
 
 <script>
-    function toggleDateField(toggle) {
+    function todayToggled(toggle) {
         const $date = document.getElementById('customDate');
         $date.disabled = toggle.checked;
+        const $random = document.getElementById('randomizeApod');
+	$random.checked = false;
+	$random.value = "false";
+    }
+    function randomToggled(toggle) {
+        const $date = document.getElementById('customDate');
+        $date.disabled = toggle.checked;
+        const $today = document.getElementById('todayApod');
+	$today.checked = false;
+	$today.value = "false";
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        const $toggle = document.getElementById('randomizeApod');
+        const $random = document.getElementById('randomizeApod');
+        const $today = document.getElementById('todayApod');
         const $date = document.getElementById('customDate');
 
-        const today = new Date().toISOString().split('T')[0];
+        const tday = new Date().toISOString().split('T')[0];
 
         if (loadPluginSettings) {
-            $toggle.checked = pluginSettings.randomizeApod === 'true';
-            $toggle.value = pluginSettings.randomizeApod;
-            $date.value = pluginSettings.customDate || today;
-            $date.disabled = $toggle.checked;
+            $random.checked = pluginSettings.randomizeApod === 'true';
+            $random.value = pluginSettings.randomizeApod;
+            $today.checked = pluginSettings.todayApod === 'true';
+            $today.value = pluginSettings.todayApod;
+            $date.value = pluginSettings.customDate || tday;
+            $date.disabled = $random.checked || $today.checked;
         } else {
-            $toggle.checked = false;
-            $toggle.value = "false";
-            $date.value = today;
+            $random.checked = false;
+            $random.value = "false";
+            $today.checked = true;
+            $today.value = "true";
+            $date.value = tday;
         }
     });
 </script>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ plugin.display_name }} Settings</title>
+    <title>{{ plugin.display_name }} Paramètres</title>
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
     <script src="{{ url_for('static', filename='scripts/response_modal.js') }}"></script>
     <!-- Select2 CSS -->
@@ -241,13 +241,13 @@
 <body>
     <div class="frame">
         <!-- Back Button -->
-        <button onclick="history.back()" class="back-button">← Back</button>
+        <button onclick="history.back()" class="back-button">← Retour</button>
 
         <!-- Plugin Title and Icon -->
         <div class="app-header">
             <img src="{{ url_for('plugin.image', plugin_id=plugin.id, filename='icon.png') }}" alt="{{ plugin.display_name }} icon" class="app-icon">
             <h1 class="app-title">{{ plugin.display_name }}</h1>
-            {% if api_key and api_key.required %}<span class="api-key-label" title="{{api_key.service}} (Set {{api_key.expected_key}} in .env)">Requires API Key</span>{% endif %}
+            {% if api_key and api_key.required %}<span class="api-key-label" title="{{api_key.service}} (Set {{api_key.expected_key}} in .env)">Requiert une clé</span>{% endif %}
             <div id="loadingIndicator" class="loading-indicator"></div>
         </div>
         <div class="separator"></div>
@@ -267,7 +267,7 @@
                         <div class="form-group">
                             
                             <div class="form-group nowrap">
-                                <label for="selected-frame" class="form-label">Frame:</label>
+                                <label for="selected-frame" class="form-label">Cadre:</label>
                                 <div id="frame-selection" class="image-grid">
                                     {% for frame in frame_styles %}
                                     <div
@@ -286,26 +286,26 @@
                             </div>
 
                             <div class="form-group nowrap">
-                                <label for="margin" class="form-label">Top Margin:</label>
+                                <label for="margin" class="form-label">Marge en haut:</label>
                                 <input type="number" class="form-input" id="topMargin" name="topMargin" min="0" max="40" step="5">px
-                                <label for="margin" class="form-label">Bottom Margin:</label>
+                                <label for="margin" class="form-label">Marge en bas:</label>
                                 <input type="number" class="form-input" id="bottomMargin" name="bottomMargin" min="0" max="40" step="5">px
                             </div>
                             <div class="form-group nowrap">
-                                <label for="margin" class="form-label">Left Margin:</label>
+                                <label for="margin" class="form-label">Marge à gauche:</label>
                                 <input type="number" class="form-input" id="leftMargin" name="leftMargin" min="0" max="40" step="5">px
-                                <label for="margin" class="form-label">Right Margin:</label>
+                                <label for="margin" class="form-label">Marge à droite:</label>
                                 <input type="number" class="form-input" id="rightMargin" name="rightMargin" min="0" max="40" step="5">px
                             </div>
                         </div>    
                         
                         <!-- Background Color Option -->
                         <div class="form-group">
-                            <label class="form-label">Background:</label>
+                            <label class="form-label">Fond:</label>
                             <div class="form-group nowrap">
                                 <label>
                                     <input type="radio" name="backgroundOption" value="color" checked>
-                                    Color
+                                    Couleur
                                 </label>
                                 <input type="color" id="backgroundColor" name="backgroundColor" class="color-picker" value="#ffffff">
                             </div>
@@ -328,7 +328,7 @@
                         
                         <!-- Text Color Picker -->
                         <div class="form-group">
-                            <label for="textColor" class="form-label">Text Color:</label>
+                            <label for="textColor" class="form-label">Couleur du texte:</label>
                             <input type="color" id="textColor" name="textColor" class="color-picker" value="#000000">
                         </div>
                     </div>
@@ -341,10 +341,10 @@
 
             <div class="buttons-container">
                 {% if plugin_instance %}
-                    <button type="button" onclick="handleAction('update_instance')" class="action-button">Save</button>
+                    <button type="button" onclick="handleAction('update_instance')" class="action-button">Sauvegarder</button>
                 {% else %}
-                    <button type="button" onclick="handleAction()" class="action-button left">Update Now</button>
-                    <button type="button" onclick="openModal('scheduleModal')" class="action-button right">Add to Playlist</button>
+                    <button type="button" onclick="handleAction()" class="action-button left">Afficher maintenant</button>
+                    <button type="button" onclick="openModal('scheduleModal')" class="action-button right">Ajouter à une Playlist</button>
                 {% endif %}
             </div>
         </form>
@@ -357,7 +357,7 @@
     <div id="scheduleModal" class="modal">
         <div class="modal-content">
             <span class="close-button" onclick="closeModal('scheduleModal')">×</span>
-            <h2>Add to Playlist</h2>
+            <h2>Ajouter à une Playlist</h2>
             <div class="separator"></div>
             <form id="scheduleForm" class="settings-form">
                 <div class="form-group">
@@ -369,31 +369,31 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="instance" class="form-label">Instance Name:</label>
-                    <input type="text" id="instance" name="instance_name" placeholder="Type something..." required class="form-input">
+                    <label for="instance" class="form-label">Nom de l'instance:</label>
+                    <input type="text" id="instance" name="instance_name" placeholder="Nom..." required class="form-input">
                 </div>
                 <div class="form-group">
-                    <label>Refresh</label>
-                    <span title="Determines how often the data and image should be refreshed.">ⓘ</span>
+                    <label>Rafraichissement:</label>
+                    <span title="Determine à quelle fréquence le plugin doit être rafraichi">ⓘ</span>
                 </div>
                 <div class="form-group nowrap">
                     <input type="radio" name="refreshType" value="interval" checked>
-                    <label for="interval">Every</label>
-                    <input type="number" id="interval" name="interval" class="form-input" required min="1" placeholder="Enter a number">
+                    <label for="interval">Tous les</label>
+                    <input type="number" id="interval" name="interval" class="form-input" required min="1" placeholder="Entrer un nombre">
                     <select id="unit" name="unit" class="form-input" required>
                         <option value="minute">Minute</option>
-                        <option value="hour">Hour</option>
-                        <option value="day">Day</option>
+                        <option value="hour">Heure</option>
+                        <option value="day">Jour</option>
                     </select>
                 </div>
                 <div class="form-group nowrap">
                     <input type="radio" name="refreshType" value="scheduled">
-                    <label for="scheduled">Daily at </label>
+                    <label for="scheduled">Tous les jours à </label>
                     <input id="scheduled" class="time-input" type="time" name="refreshTime" step="900">
                 </div>
             </form>
             <div class="buttons-container">
-                <button type="button" onclick="handleAction('add_to_playlist')" class="action-button">Save</button>
+                <button type="button" onclick="handleAction('add_to_playlist')" class="action-button">Ajouter à la Playlist</button>
             </div>
         </div>
     </div>

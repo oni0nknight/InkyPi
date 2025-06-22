@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings</title>
+    <title>Paramètres</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/main.css') }}">
     <script src="{{ url_for('static', filename='scripts/response_modal.js') }}"></script>
     <script>
@@ -90,17 +90,17 @@
 <body>
     <div class="frame">
         <!-- Back Button -->
-        <button onclick="history.back()" class="back-button">← Back</button>
+        <button onclick="history.back()" class="back-button">← Retour</button>
         <!-- Settings Header -->
         <div class="app-header">
             <div class="header-content">
                 <div class="title-container">
                     <img src="{{ url_for('static', filename='icons/settings.png') }}" alt="settings icon" class="app-icon">
-                    <h1 class="app-title">Settings</h1>
+                    <h1 class="app-title">Paramètres généraux</h1>
                 </div>
                 <div>
-                    <button class="header-button" onclick="handleShutdown(true)">Reboot</button>
-                    <button class="header-button" onclick="handleShutdown(false)">Shutdown</button>
+                    <button class="header-button" onclick="handleShutdown(true)">Redémarrer</button>
+                    <button class="header-button" onclick="handleShutdown(false)">Éteindre</button>
                 </div>
             </div>
         </div>
@@ -110,7 +110,7 @@
             <div id="settings-container">
                 <!-- Device Name -->
                 <div class="form-group">
-                    <label for="deviceName" class="form-label">Device Name:</label>
+                    <label for="deviceName" class="form-label">Nom de l'appareil:</label>
                     <input type="text" 
                            id="deviceName" 
                            name="deviceName" 
@@ -128,21 +128,21 @@
                             <option value="vertical" {% if device_settings.orientation == "vertical" %}selected{% endif %}>Vertical</option>
                         </select>
                         <!-- Invert Image Checkbox -->
-                        <label class="form-label" for="invertImage">Invert Image</label>
+                        <label class="form-label" for="invertImage">Inverser l'image</label>
                         <input type="checkbox" id="invertImage" name="invertImage" {% if device_settings.inverted_image %}checked{% endif %}>
                         </label>
                 </div>
                     
                     <!-- Timezone Dropdown -->
                     <div class="form-group">
-                        <label for="timezone" class="form-label">Time Zone:</label>
+                        <label for="timezone" class="form-label">Fuseau horaire:</label>
                         <input
                             type="text"
                             id="timezone"
                             name="timezoneName"
                             class="form-input"
                             list="timezoneList"
-                            placeholder="Type to search..."
+                            placeholder="Taper pour rechercher..."
                             value="{{ device_settings.timezone }}"
                         />
                         <datalist id="timezoneList">
@@ -154,27 +154,27 @@
 
                     <!-- Time Format Dropdown -->
                     <div class="form-group">
-                        <label for="timeFormat" class="form-label">Time Format:</label>
+                        <label for="timeFormat" class="form-label">Format d'heure:</label>
                         <select id="timeFormat" name="timeFormat" class="form-input">
-                            <option value="12h" {% if device_settings.time_format == "12h" %}selected{% endif %}>12 Hour (AM/PM)</option>
-                            <option value="24h" {% if device_settings.time_format == "24h" %}selected{% endif %}>24 Hour</option>
+                            <option value="12h" {% if device_settings.time_format == "12h" %}selected{% endif %}>12 Heure (AM/PM)</option>
+                            <option value="24h" {% if device_settings.time_format == "24h" %}selected{% endif %}>24 Heure</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="interval">Plugin Cycle Interval:</label>
-                    <span title="Determines how often the display switches to a new plugin.">ⓘ</span>
-                    <span>Every</span>
+                    <label for="interval">Interval de cycle des plugins:</label>
+                    <span title="Détermine à quelle fréquence l'affichage passe à un nouveau plugin.">ⓘ</span>
+                    <span>Toutes les</span>
                     <input type="number" id="interval" name="interval" class="form-input" required min="1">
                     <select id="unit" name="unit" class="form-input" required>
                         <option value="minute">Minute</option>
-                        <option value="hour">Hour</option>
+                        <option value="hour">Heure</option>
                     </select>
                 </div>
 
                 <div class="collapsible">
                     <button type="button" class="collapsible-header" onclick="toggleCollapsible(this)">
-                        Image Settings <span class="collapsible-icon">▼</span>
+                        Paramètres d'écran <span class="collapsible-icon">▼</span>
                     </button>
                     <div class="settings-container collapsible-content">
                         <div class="form-group">
@@ -192,7 +192,7 @@
                             />
                         </div>
                         <div class="form-group">
-                            <label for="contrast" class="form-label" style="min-width: 100px;">Contrast:</label>
+                            <label for="contrast" class="form-label" style="min-width: 100px;">Contraste:</label>
                             <span id="contrast-value">{{ device_settings.get('image_settings', {}).get('contrast', 1.0) }}</span>
                             <input
                                 type="range"
@@ -206,7 +206,7 @@
                             />
                          </div>
                         <div class="form-group">
-                            <label for="sharpness" class="form-label" style="min-width: 100px;">Sharpness:</label>
+                            <label for="sharpness" class="form-label" style="min-width: 100px;">Finesse:</label>
                             <span id="sharpness-value">{{ device_settings.get('image_settings', {}).get('sharpness', 1.0) }}</span>
                             <input
                                 type="range"
@@ -220,7 +220,7 @@
                             />
                         </div>
                         <div class="form-group">
-                            <label for="brightness" class="form-label" style="min-width: 100px;">Brightness:</label>
+                            <label for="brightness" class="form-label" style="min-width: 100px;">Luminosité:</label>
                             <span id="brightness-value">{{ device_settings.get('image_settings', {}).get('brightness', 1.0) }}</span>
                             <input
                                 type="range"
@@ -240,7 +240,7 @@
  
         <!-- Buttons -->
         <div class="buttons-container">
-            <button type="button" onclick="handleAction()" class="action-button">Save</button>
+            <button type="button" onclick="handleAction()" class="action-button">Sauvegarder</button>
         </div>
     </div>
     <!-- Success/Error Modal -->
